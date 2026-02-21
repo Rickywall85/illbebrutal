@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'll Be Brutal — The truth about your life in 5 questions</title>
+    <meta name="description" content="Answer 5 questions. Get a brutally honest assessment of your life. No sugarcoating. No therapy speak. Just the truth.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --red: #E8243C;
+            --dark-red: #B91C30;
+            --black: #0A0A0A;
+            --off-black: #111111;
+            --dark-grey: #1A1A1A;
+            --mid-grey: #2A2A2A;
+            --text: #F0EDED;
+            --text-dim: #888888;
+            --text-muted: #555555;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--black);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* GRAIN OVERLAY */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(232, 36, 60, 0.08) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .brand {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            animation: brandIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .brand span { color: var(--red); }
+
+        @keyframes brandIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            animation: fadeUp 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-cta {
+            animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-cta a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--red);
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid var(--red);
+            padding: 1rem 2.5rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .hero-cta a:hover {
+            background: var(--red);
+            color: var(--black);
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeUp 1s 1s cubic-bezier(0.16, 1, 0.3, 1) forwards, bounce 2s 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--red), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* WHAT IS THIS */
+        .what {
+            padding: 8rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .what-intro {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--red);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .what h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .what p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .what p strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* EXAMPLE OUTPUTS */
+        .examples {
+            padding: 6rem 2rem;
+            background: var(--off-black);
+            overflow: hidden;
+        }
+
+        .examples-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--red);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .example-scroll {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .example-scroll::-webkit-scrollbar { display: none; }
+
+        .example-card {
+            flex: 0 0 300px;
+            max-width: 340px;
+            background: var(--dark-grey);
+            border: 1px solid #222;
+            padding: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--red);
+        }
+
+        .example-score {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .example-score span {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .example-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+
+        /* HOW IT WORKS */
+        .how {
+            padding: 8rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .how-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--red);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .how-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .how-step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .how-num {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            color: var(--mid-grey);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 60px;
+            text-align: right;
+        }
+
+        .how-step-content h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .how-step-content p {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* DIVIDER */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--red);
+            margin: 0 auto;
+        }
+
+        /* CHOOSE SECTION */
+        .choose {
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .choose-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--red);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .choose h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .choose-sub {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 4rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--off-black);
+            border: 1px solid #222;
+            padding: 2.5rem 2rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            border-color: var(--red);
+            transform: translateY(-6px);
+            background: #141414;
+        }
+
+        .card:hover::before { transform: scaleX(1); }
+
+        .card-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-arrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--red);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .card:hover .card-arrow { gap: 1rem; }
+
+        .card-arrow span {
+            display: inline-block;
+            width: 20px;
+            height: 1px;
+            background: var(--red);
+            position: relative;
+        }
+
+        .card-arrow span::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 7px;
+            height: 7px;
+            border-right: 1px solid var(--red);
+            border-top: 1px solid var(--red);
+            transform: rotate(45deg);
+        }
+
+        /* BRUTALITY SECTION */
+        .brutality {
+            padding: 6rem 2rem;
+            background: var(--off-black);
+            text-align: center;
+        }
+
+        .brutality-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--red);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .brutality h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .levels {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .level {
+            flex: 1;
+            min-width: 240px;
+            max-width: 280px;
+            padding: 2rem;
+            border: 1px solid #222;
+            transition: border-color 0.3s ease;
+        }
+
+        .level:hover { border-color: var(--red); }
+
+        .level-name {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .level:nth-child(1) .level-name { color: var(--text); }
+        .level:nth-child(2) .level-name { color: var(--red); }
+        .level:nth-child(3) .level-name { color: #FF1744; text-shadow: 0 0 30px rgba(255, 23, 68, 0.3); }
+
+        .level-bar {
+            height: 3px;
+            background: var(--mid-grey);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-bar-fill {
+            height: 100%;
+            background: var(--red);
+        }
+
+        .level:nth-child(1) .level-bar-fill { width: 40%; }
+        .level:nth-child(2) .level-bar-fill { width: 70%; }
+        .level:nth-child(3) .level-bar-fill { width: 100%; background: #FF1744; }
+
+        .level-desc {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* PRICE */
+        .price-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .price-amount {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(5rem, 12vw, 10rem);
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount span { color: var(--text-muted); font-size: 0.4em; }
+
+        .price-note {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .final-cta h2 span { color: var(--red); }
+
+        .cta-btn {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--black);
+            background: var(--red);
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #FF1744;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(232, 36, 60, 0.3);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid #1A1A1A;
+        }
+
+        footer p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* SCROLL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .how-step { flex-direction: column; gap: 0.5rem; }
+            .how-num { text-align: left; width: auto; font-size: 2rem; }
+            .example-scroll { justify-content: flex-start; flex-wrap: nowrap; }
+            .example-card { flex: 0 0 280px; }
+            .cards { grid-template-columns: 1fr; }
+            .levels { flex-direction: column; align-items: center; }
+            .level { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="brand">I'll Be<br><span>Brutal</span></h1>
+            <p class="tagline">The truth about your life in 5 questions</p>
+            <div class="hero-cta">
+                <a href="#choose">I can handle it</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"><span></span></div>
+    </section>
+
+    <!-- WHAT IS THIS -->
+    <section class="what">
+        <div class="reveal">
+            <p class="what-intro">What is this</p>
+            <h2>You already know what's wrong with your life. You're just not admitting it.</h2>
+            <p>I'll Be Brutal asks you 5 questions about your life. <strong>Real questions. Not a personality quiz.</strong> Not "what colour are you." Five questions that force you to be honest with yourself.</p>
+            <p>Then it tells you the truth. Your life, scored out of 10, with a breakdown so accurate you'll wonder who's been reading your diary.</p>
+            <p><strong>No sugarcoating. No "you're doing great, sweetie." Just the stuff your friends are too polite to say.</strong></p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EXAMPLES -->
+    <section class="examples">
+        <p class="examples-label reveal">Real results from real people</p>
+        <div class="example-scroll reveal">
+            <div class="example-card">
+                <div class="example-score">4.2<span>/10</span></div>
+                <p class="example-text">"You've built a life that looks good from the outside and feels like a waiting room from the inside."</p>
+            </div>
+            <div class="example-card">
+                <div class="example-score">6.8<span>/10</span></div>
+                <p class="example-text">"You're not lazy. You're scared. There's a difference, and it's time you stopped confusing the two."</p>
+            </div>
+            <div class="example-card">
+                <div class="example-score">3.1<span>/10</span></div>
+                <p class="example-text">"You set alarms you snooze and goals you abandon. Your potential called — it's moving on."</p>
+            </div>
+            <div class="example-card">
+                <div class="example-score">7.4<span>/10</span></div>
+                <p class="example-text">"You're doing better than you think in every area except the one that actually matters to you."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how">
+        <p class="how-label reveal">How it works</p>
+        <div class="how-steps">
+            <div class="how-step reveal">
+                <div class="how-num">01</div>
+                <div class="how-step-content">
+                    <h3>Pick your audit</h3>
+                    <p>Four options. Life audit for men, life audit for women, a relationships deep-dive, or the one that'll really test you.</p>
+                </div>
+            </div>
+            <div class="how-step reveal">
+                <div class="how-num">02</div>
+                <div class="how-step-content">
+                    <h3>Choose how brutal</h3>
+                    <p>Brutal, Savage, or Unhinged. Pick the level of honesty you think you can handle. Most people overestimate.</p>
+                </div>
+            </div>
+            <div class="how-step reveal">
+                <div class="how-num">03</div>
+                <div class="how-step-content">
+                    <h3>Answer 5 questions honestly</h3>
+                    <p>In your own words. No multiple choice. No hiding behind vague answers. The more honest you are, the harder it hits.</p>
+                </div>
+            </div>
+            <div class="how-step reveal">
+                <div class="how-num">04</div>
+                <div class="how-step-content">
+                    <h3>Get your results</h3>
+                    <p>A personalised life score, a one-liner that'll haunt you, and an assessment so specific you'll think someone's been watching you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CHOOSE YOUR AUDIT -->
+    <section class="choose" id="choose">
+        <div class="reveal">
+            <p class="choose-label">Pick your poison</p>
+            <h2>Choose your audit</h2>
+            <p class="choose-sub">£1.99. Takes 3 minutes. Results hit your inbox within 15 minutes.</p>
+        </div>
+        <div class="cards">
+            <a href="#" class="card reveal">
+                <p class="card-tag">Life Audit</p>
+                <h3>Men's Life<br>Audit</h3>
+                <p>Career. Fitness. Finances. Friendships. The five questions that expose whether you're building something or just showing up.</p>
+                <div class="card-arrow">Take the audit <span></span></div>
+            </a>
+            <a href="#" class="card reveal">
+                <p class="card-tag">Life Audit</p>
+                <h3>Women's Life<br>Audit</h3>
+                <p>Energy. Boundaries. Growth. The gap between the life you're living and the one you actually want, measured in five questions.</p>
+                <div class="card-arrow">Take the audit <span></span></div>
+            </a>
+            <a href="#" class="card reveal">
+                <p class="card-tag">Relationships</p>
+                <h3>Relationship<br>Audit</h3>
+                <p>Patterns. Red flags. The things you complain about but never change. Five questions that cut through the noise.</p>
+                <div class="card-arrow">Take the audit <span></span></div>
+            </a>
+            <a href="#" class="card reveal">
+                <p class="card-tag">The Real Question</p>
+                <h3>Are You A<br>Real Man?</h3>
+                <p>Character. Accountability. The version of yourself you show the world versus who you are when nobody's watching.</p>
+                <div class="card-arrow">Take the audit <span></span></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- BRUTALITY LEVELS -->
+    <section class="brutality">
+        <div class="reveal">
+            <p class="brutality-label">Choose your level</p>
+            <h2>How honest can you handle?</h2>
+        </div>
+        <div class="levels reveal">
+            <div class="level">
+                <p class="level-name">Brutal</p>
+                <div class="level-bar"><div class="level-bar-fill"></div></div>
+                <p class="level-desc">Direct. Sharp. Funny. Like your most honest friend after two drinks.</p>
+            </div>
+            <div class="level">
+                <p class="level-name">Savage</p>
+                <div class="level-bar"><div class="level-bar-fill"></div></div>
+                <p class="level-desc">Finds the thing you're most insecure about. Turns the knife. Smiles.</p>
+            </div>
+            <div class="level">
+                <p class="level-name">Unhinged</p>
+                <div class="level-bar"><div class="level-bar-fill"></div></div>
+                <p class="level-desc">Scorched earth. You will screenshot this. You may not recover from it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICE -->
+    <section class="price-section reveal">
+        <div class="price-amount">£1.99</div>
+        <p class="price-note">Less than a coffee. Hurts more than therapy.</p>
+        <p class="price-sub">Results delivered to your inbox in 15 minutes.</p>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta reveal">
+        <h2>Still scrolling?<br><span>That's avoidance.</span></h2>
+        <a href="#choose" class="cta-btn">Take the audit</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>I'll Be Brutal. For entertainment purposes. &copy; 2026</p>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

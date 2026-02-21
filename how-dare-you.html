@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relationship Audit | I'll Be Brutal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>How Dare You | I'll Be Brutal</title>
+    <meta name="description" content="5 questions about your relationship. Brutally honest results. £1.99. You already know the answer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -13,11 +14,10 @@
             --red: #E8243C;
             --black: #0A0A0A;
             --off-black: #111111;
-            --dark-grey: #1A1A1A;
             --mid-grey: #2A2A2A;
             --text: #F0EDED;
-            --text-dim: #888888;
-            --text-muted: #555555;
+            --text-dim: #999;
+            --text-muted: #555;
         }
         html { scroll-behavior: smooth; }
         body {
@@ -25,7 +25,7 @@
             color: var(--text);
             font-family: 'Outfit', sans-serif;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
         body::after {
             content: '';
@@ -35,462 +35,290 @@
             pointer-events: none;
             z-index: 9999;
         }
-
-        .quiz-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 3rem 2rem 4rem;
+        .screen {
+            min-height: 100dvh; display: none; flex-direction: column;
+            position: relative; animation: screenIn 0.35s ease;
         }
-
-        .quiz-header {
-            text-align: center;
-            margin-bottom: 3rem;
+        .screen.active { display: flex; }
+        @keyframes screenIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .lander {
+            justify-content: center; align-items: center; text-align: center; padding: 2rem 1.5rem;
         }
-
-        .quiz-back {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 2rem;
-            transition: color 0.3s;
-        }
-        .quiz-back:hover { color: var(--red); }
-
-        .quiz-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--red);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .quiz-title {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
-            text-transform: uppercase;
-            line-height: 1;
-            margin-bottom: 1rem;
-        }
-
-        .quiz-subtitle {
-            font-size: 1rem;
-            color: var(--text-dim);
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* PROGRESS BAR */
-        .progress-wrap {
-            margin-bottom: 3rem;
-        }
-        .progress-bar {
-            height: 2px;
-            background: var(--mid-grey);
-            width: 100%;
-            position: relative;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--red);
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 0%;
-        }
-        .progress-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-            margin-top: 0.5rem;
-            text-align: right;
-        }
-
-        /* STEPS */
-        .step {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-        .step.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .step-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--red);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .step-question {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 500;
-            line-height: 1.4;
-            margin-bottom: 1.5rem;
-        }
-
-        /* BRUTALITY SELECT */
-        .brutality-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .brutality-option {
-            background: var(--off-black);
-            border: 1px solid #222;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .brutality-option:hover {
-            border-color: var(--red);
-        }
-
-        .brutality-option.selected {
-            border-color: var(--red);
-            background: #1a0a0d;
-        }
-
-        .brutality-option.selected::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--red);
-        }
-
-        .brutality-name {
-            font-family: 'Anton', sans-serif;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
-
-        .brutality-option:nth-child(1) .brutality-name { color: var(--text); }
-        .brutality-option:nth-child(2) .brutality-name { color: var(--red); }
-        .brutality-option:nth-child(3) .brutality-name { color: #FF1744; }
-
-        .brutality-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-weight: 300;
-        }
-
-        /* TEXT AREAS */
-        textarea {
-            width: 100%;
-            min-height: 150px;
-            background: var(--off-black);
-            border: 1px solid #222;
-            color: var(--text);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 300;
-            padding: 1.25rem;
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.3s;
-            line-height: 1.6;
-        }
-        textarea:focus { border-color: var(--red); }
-        textarea::placeholder { color: var(--text-muted); }
-
-        /* EMAIL INPUT */
-        input[type="email"] {
-            width: 100%;
-            background: var(--off-black);
-            border: 1px solid #222;
-            color: var(--text);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 300;
-            padding: 1.25rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        input[type="email"]:focus { border-color: var(--red); }
-        input[type="email"]::placeholder { color: var(--text-muted); }
-
-        /* BUTTONS */
-        .btn-next {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--black);
-            background: var(--red);
-            border: none;
-            padding: 1rem 2.5rem;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        .btn-next:hover {
-            background: #FF1744;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(232, 36, 60, 0.3);
-        }
-        .btn-next:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-back-step {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            background: none;
-            border: none;
-            cursor: pointer;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-top: 1rem;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
-        .btn-back-step:hover { color: var(--text); }
-
-        /* SUBMITTING STATE */
-        .btn-next.submitting {
+        .lander::before {
+            content: ''; position: absolute;
+            top: -40%; left: -40%; width: 180%; height: 180%;
+            background: radial-gradient(circle at 50% 40%, rgba(232, 36, 60, 0.07) 0%, transparent 55%);
             pointer-events: none;
-            opacity: 0.6;
         }
-
-        /* WARNING */
-        .step-warning {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 1.5rem;
-            line-height: 1.6;
+        .lander-content { position: relative; z-index: 2; max-width: 480px; }
+        .lander-badge {
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            color: var(--red); letter-spacing: 0.35em; text-transform: uppercase;
+            margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; transform: translateY(15px);
         }
-
-        .error-msg {
-            color: var(--red);
-            font-size: 0.85rem;
-            margin-top: 0.75rem;
-            display: none;
+        .lander h1 {
+            font-family: 'Anton', sans-serif; font-size: clamp(3rem, 13vw, 5.5rem);
+            text-transform: uppercase; line-height: 0.9; margin-bottom: 1.25rem;
+            opacity: 0; animation: fadeUp 0.6s 0s forwards; transform: translateY(20px);
         }
-
-        @media (max-width: 600px) {
-            .quiz-container { padding: 2rem 1.25rem 3rem; }
-            textarea { min-height: 120px; }
+        .lander h1 span { color: var(--red); }
+        .lander-pitch {
+            font-size: 0.95rem; color: var(--text-dim); font-weight: 300;
+            line-height: 1.65; margin-bottom: 1.75rem;
+            opacity: 0; animation: fadeUp 0.6s 0.2s forwards; transform: translateY(15px);
+        }
+        .lander-price-row {
+            margin-bottom: 1.75rem; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; transform: translateY(15px);
+        }
+        .lander-price { font-family: 'Anton', sans-serif; font-size: 2.5rem; display: inline-block; }
+        .lander-price-jab {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            color: var(--text-muted); display: block; margin-top: 0.25rem;
+        }
+        .lander-cta { opacity: 0; animation: fadeUp 0.6s 0.4s forwards; transform: translateY(15px); }
+        .btn-dare {
+            font-family: 'Space Mono', monospace; font-size: 0.85rem;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--black);
+            background: var(--red); border: none; padding: 1.1rem 3rem;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-dare:hover { background: #FF1744; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232, 36, 60, 0.35); }
+        .lander-footer-line {
+            position: absolute; bottom: 1.25rem; left: 0; width: 100%; text-align: center;
+            font-family: 'Space Mono', monospace; font-size: 0.55rem;
+            color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase;
+            opacity: 0; animation: fadeUp 0.6s 0.6s forwards; transform: translateY(5px);
+        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .progress-strip { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: var(--mid-grey); z-index: 500; display: none; }
+        .progress-strip.visible { display: block; }
+        .progress-strip-fill { height: 100%; background: var(--red); transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); width: 0%; }
+        .quiz-screen { justify-content: center; padding: 3.5rem 1.5rem 2rem; }
+        .quiz-inner { max-width: 560px; width: 100%; margin: 0 auto; }
+        .q-step-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1rem; }
+        .q-title { font-family: 'Anton', sans-serif; font-size: clamp(1.6rem, 5vw, 2.2rem); text-transform: uppercase; line-height: 1.1; margin-bottom: 1.25rem; }
+        .q-instruction { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
+        .brutality-options { display: flex; flex-direction: column; gap: 0.6rem; }
+        .brutality-option { background: var(--off-black); border: 1px solid #222; padding: 1.1rem 1.25rem; cursor: pointer; transition: all 0.3s ease; position: relative; }
+        .brutality-option:hover { border-color: #444; }
+        .brutality-option.selected { border-color: var(--red); background: #1a0a0d; }
+        .brutality-option.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red); }
+        .b-name { font-family: 'Anton', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 0.15rem; }
+        .brutality-option:nth-child(1) .b-name { color: var(--text); }
+        .brutality-option:nth-child(2) .b-name { color: var(--red); }
+        .brutality-option:nth-child(3) .b-name { color: #FF1744; }
+        .b-desc { font-size: 0.8rem; color: var(--text-dim); font-weight: 300; }
+        textarea { width: 100%; min-height: 160px; background: var(--off-black); border: 1px solid #222; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; padding: 1.15rem; resize: vertical; outline: none; transition: border-color 0.3s; line-height: 1.6; }
+        textarea:focus { border-color: var(--red); }
+        textarea::placeholder { color: #444; }
+        input[type="email"] { width: 100%; background: var(--off-black); border: 1px solid #222; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; padding: 1.15rem; outline: none; transition: border-color 0.3s; }
+        input[type="email"]:focus { border-color: var(--red); }
+        input[type="email"]::placeholder { color: #444; }
+        .btn-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .btn-next { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); background: var(--red); border: none; padding: 0.9rem 2rem; cursor: pointer; transition: all 0.3s ease; }
+        .btn-next:hover { background: #FF1744; transform: translateY(-1px); box-shadow: 0 6px 25px rgba(232, 36, 60, 0.3); }
+        .btn-next.submitting { pointer-events: none; opacity: 0.5; }
+        .btn-back { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text-muted); background: none; border: none; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 0; transition: color 0.3s; }
+        .btn-back:hover { color: var(--text); }
+        .error-msg { font-family: 'Space Mono', monospace; color: var(--red); font-size: 0.7rem; margin-top: 0.75rem; display: none; }
+        .step-fine-print { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.6; }
+        @media (min-width: 768px) {
+            .lander { padding: 3rem 2rem; }
+            .lander h1 { font-size: 6rem; }
+            .lander-pitch { font-size: 1.05rem; max-width: 460px; margin-left: auto; margin-right: auto; }
+            .quiz-screen { padding: 4rem 2rem; }
+            textarea { min-height: 180px; }
+        }
+        @media (max-width: 380px) {
+            .lander h1 { font-size: 2.6rem; }
+            .lander-pitch { font-size: 0.85rem; }
+            .lander-price { font-size: 2rem; }
+            .btn-dare { padding: 1rem 2rem; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div class="quiz-header">
-        <a href="/" class="quiz-back">&larr; Back to I'll Be Brutal</a>
-        <p class="quiz-tag">Relationships</p>
-        <h1 class="quiz-title">Relationship Audit</h1>
-        <p class="quiz-subtitle">5 questions. The patterns you already know about.</p>
+<div class="progress-strip" id="progressStrip"><div class="progress-strip-fill" id="progressFill"></div></div>
+
+<!-- LANDER -->
+<div class="screen lander active" data-screen="0">
+    <div class="lander-content">
+        <p class="lander-badge">I'll Be Brutal</p>
+        <h1>How<br><span>Dare You</span></h1>
+        <p class="lander-pitch">Five questions about your arguments, your patterns, your red flags, and the honest reason you're doing this right now. We read your answers. Then we tell you what your friends have been too polite to say.</p>
+        <div class="lander-price-row">
+            <div class="lander-price">£1.99</div>
+            <span class="lander-price-jab">Less than a glass of wine. Harder to swallow.</span>
+        </div>
+        <div class="lander-cta">
+            <button class="btn-dare" onclick="goTo(1)">I dare you</button>
+        </div>
     </div>
+    <p class="lander-footer-line">Results emailed within 15 mins &bull; For entertainment purposes</p>
+</div>
 
-    <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">0 / 7</div>
-    </div>
-
-    <form id="quizForm">
-        <input type="hidden" name="audit_type" value="Relationships - Women">
-
-        <!-- Step 1: Brutality -->
-        <div class="step active" data-step="1">
-            <p class="step-label">First things first</p>
-            <p class="step-question">How brutal can you handle?</p>
-            <div class="brutality-options">
-                <div class="brutality-option" data-value="Brutal" onclick="selectBrutality(this)">
-                    <p class="brutality-name">Brutal</p>
-                    <p class="brutality-desc">Direct. Sharp. Funny. Like your most honest friend after two drinks.</p>
-                </div>
-                <div class="brutality-option" data-value="Savage" onclick="selectBrutality(this)">
-                    <p class="brutality-name">Savage</p>
-                    <p class="brutality-desc">Finds the thing you're most insecure about. Turns the knife. Smiles.</p>
-                </div>
-                <div class="brutality-option" data-value="Unhinged" onclick="selectBrutality(this)">
-                    <p class="brutality-name">Unhinged</p>
-                    <p class="brutality-desc">Scorched earth. You will screenshot this. You may not recover from it.</p>
-                </div>
+<!-- BRUTALITY -->
+<div class="screen quiz-screen" data-screen="1">
+    <div class="quiz-inner">
+        <p class="q-step-label">Before we start</p>
+        <h2 class="q-title">How brutal do you want this?</h2>
+        <p class="q-instruction">Your love life's about to get audited. Pick your pain threshold.</p>
+        <div class="brutality-options">
+            <div class="brutality-option" data-value="Brutal" onclick="selectBrutality(this)">
+                <p class="b-name">Brutal</p>
+                <p class="b-desc">Direct. Sharp. Funny. Like your most honest friend over coffee.</p>
             </div>
-            <input type="hidden" name="brutality_level" id="brutalityInput" required>
-            <p class="error-msg" id="err1">Pick your poison.</p>
-            <button type="button" class="btn-next" onclick="nextStep(1)">Next</button>
+            <div class="brutality-option" data-value="Savage" onclick="selectBrutality(this)">
+                <p class="b-name">Savage</p>
+                <p class="b-desc">Finds the pattern you've been ignoring. Rubs your face in it.</p>
+            </div>
+            <div class="brutality-option" data-value="Unhinged" onclick="selectBrutality(this)">
+                <p class="b-name">Unhinged</p>
+                <p class="b-desc">Your relationship gets absolutely demolished. You asked for it.</p>
+            </div>
         </div>
+        <input type="hidden" id="brutalityInput">
+        <p class="error-msg" id="err1">Pick one. Avoidance is why you're here.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(2)">Next</button>
+            <button class="btn-back" onclick="goTo(0)">&larr; Back out</button>
+        </div>
+    </div>
+</div>
 
-        <!-- Step 2: Q1 -->
-        <div class="step" data-step="2">
-            <p class="step-label">Question 1 of 5</p>
-            <p class="step-question">Describe the last argument or disagreement you had with your partner (or your most recent ex). What was it actually about underneath?</p>
-            <textarea name="q1" id="q1" placeholder="Not the surface argument. The real one."></textarea>
-            <p class="error-msg" id="err2">Come on. Write something.</p>
-            <button type="button" class="btn-next" onclick="nextStep(2)">Next</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(2)">&larr; Back</button>
+<!-- Q1 -->
+<div class="screen quiz-screen" data-screen="2">
+    <div class="quiz-inner">
+        <p class="q-step-label">Question 1 of 5</p>
+        <h2 class="q-title">Describe the last argument you had with your partner or most recent ex. What was it actually about underneath?</h2>
+        <p class="q-instruction">Not what you argued about on the surface — control, money, dishes, whatever. What was it REALLY about? The unspoken thing. The pattern. Take your time with this one. Details matter.</p>
+        <textarea id="q1" placeholder="The argument was about... but really it was about..."></textarea>
+        <p class="error-msg" id="err2">Leaving this blank says more than you think.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(3)">Next</button>
+            <button class="btn-back" onclick="goTo(1)">&larr; Back</button>
         </div>
+    </div>
+</div>
 
-        <!-- Step 3: Q2 -->
-        <div class="step" data-step="3">
-            <p class="step-label">Question 2 of 5</p>
-            <p class="step-question">What do you complain about most to your friends about your relationship or dating life? Be specific.</p>
-            <textarea name="q2" id="q2" placeholder="The thing you keep saying. Out loud this time."></textarea>
-            <p class="error-msg" id="err3">Don't dodge this one.</p>
-            <button type="button" class="btn-next" onclick="nextStep(3)">Next</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(3)">&larr; Back</button>
+<!-- Q2 -->
+<div class="screen quiz-screen" data-screen="3">
+    <div class="quiz-inner">
+        <p class="q-step-label">Question 2 of 5</p>
+        <h2 class="q-title">What do you complain about most to your friends about your relationship or dating life?</h2>
+        <p class="q-instruction">The recurring rant. The thing you keep saying. Be specific — what exactly do you tell them? And have you noticed they've stopped being surprised by it?</p>
+        <textarea id="q2" placeholder="I keep telling my friends that..."></textarea>
+        <p class="error-msg" id="err3">If you can't think of anything, your friends can.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(4)">Next</button>
+            <button class="btn-back" onclick="goTo(2)">&larr; Back</button>
         </div>
+    </div>
+</div>
 
-        <!-- Step 4: Q3 -->
-        <div class="step" data-step="4">
-            <p class="step-label">Question 3 of 5</p>
-            <p class="step-question">What's a red flag you spotted early but talked yourself out of? What did you tell yourself?</p>
-            <textarea name="q3" id="q3" placeholder="The flag. And the excuse you made for it."></textarea>
-            <p class="error-msg" id="err4">You know what they'd say. Write it.</p>
-            <button type="button" class="btn-next" onclick="nextStep(4)">Next</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(4)">&larr; Back</button>
+<!-- Q3 -->
+<div class="screen quiz-screen" data-screen="4">
+    <div class="quiz-inner">
+        <p class="q-step-label">Question 3 of 5</p>
+        <h2 class="q-title">What's a red flag you spotted early but talked yourself out of?</h2>
+        <p class="q-instruction">The moment you noticed something was off and chose to ignore it. What was the flag? And what did you tell yourself to make it okay? Be as specific as possible — this is where the pattern lives.</p>
+        <textarea id="q3" placeholder="I noticed early on that... but I told myself..."></textarea>
+        <p class="error-msg" id="err4">You remember. You've just been pretending you don't.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(5)">Next</button>
+            <button class="btn-back" onclick="goTo(3)">&larr; Back</button>
         </div>
+    </div>
+</div>
 
-        <!-- Step 5: Q4 -->
-        <div class="step" data-step="5">
-            <p class="step-label">Question 4 of 5</p>
-            <p class="step-question">Describe the kind of relationship you actually want. Now, how far is your current situation from that?</p>
-            <textarea name="q4" id="q4" placeholder="The dream. Then the gap."></textarea>
-            <p class="error-msg" id="err5">Even if the answer hurts.</p>
-            <button type="button" class="btn-next" onclick="nextStep(5)">Next</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(5)">&larr; Back</button>
+<!-- Q4 -->
+<div class="screen quiz-screen" data-screen="5">
+    <div class="quiz-inner">
+        <p class="q-step-label">Question 4 of 5</p>
+        <h2 class="q-title">Describe the relationship you actually want. Now, how far is your current situation from that?</h2>
+        <p class="q-instruction">Paint the picture first — what does it look like, feel like, what does the other person do, how do they make you feel. Then measure the gap. How far away are you? Be brutal with yourself. We're going to be brutal with you anyway.</p>
+        <textarea id="q4" placeholder="What I actually want is... and right now I'm..."></textarea>
+        <p class="error-msg" id="err5">The gap is where the truth is. Measure it.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(6)">Next</button>
+            <button class="btn-back" onclick="goTo(4)">&larr; Back</button>
         </div>
+    </div>
+</div>
 
-        <!-- Step 6: Q5 -->
-        <div class="step" data-step="6">
-            <p class="step-label">Question 5 of 5</p>
-            <p class="step-question">What's the honest reason you're doing this quiz right now?</p>
-            <textarea name="q5" id="q5" placeholder="Why are you really here?"></textarea>
-            <p class="error-msg" id="err6">This is the one that matters most.</p>
-            <button type="button" class="btn-next" onclick="nextStep(6)">Next</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(6)">&larr; Back</button>
+<!-- Q5 -->
+<div class="screen quiz-screen" data-screen="6">
+    <div class="quiz-inner">
+        <p class="q-step-label">Question 5 of 5</p>
+        <h2 class="q-title">What's the honest reason you're doing this quiz right now?</h2>
+        <p class="q-instruction">Not "for a laugh." Not "my friend sent it to me." Why are you really here? What's going on that made you click this link and answer questions about your love life to a stranger on the internet? Say it. All of it.</p>
+        <textarea id="q5" placeholder="The real reason I'm here is..."></textarea>
+        <p class="error-msg" id="err6">This is the most important answer you'll give. Don't waste it.</p>
+        <div class="btn-row">
+            <button class="btn-next" onclick="goTo(7)">Next</button>
+            <button class="btn-back" onclick="goTo(5)">&larr; Back</button>
         </div>
+    </div>
+</div>
 
-        <!-- Step 7: Email + Submit -->
-        <div class="step" data-step="7">
-            <p class="step-label">Last step</p>
-            <p class="step-question">Where should we send your results?</p>
-            <input type="email" name="email" id="emailInput" placeholder="your@email.com" required>
-            <p class="error-msg" id="err7">We need your email to send the results.</p>
-            <p class="step-warning">Your results will be delivered within 15 minutes. £1.99. For entertainment purposes.</p>
-            <button type="button" class="btn-next" id="submitBtn" onclick="submitQuiz()">Pay £1.99 &amp; Get My Results</button>
-            <button type="button" class="btn-back-step" onclick="prevStep(7)">&larr; Back</button>
+<!-- EMAIL + PAY -->
+<div class="screen quiz-screen" data-screen="7">
+    <div class="quiz-inner">
+        <p class="q-step-label">Last thing</p>
+        <h2 class="q-title">Where do we send the damage?</h2>
+        <p class="q-instruction">Your results land in your inbox within 15 minutes. Check your spelling — we're not hunting you down to deliver bad news.</p>
+        <input type="email" id="emailInput" placeholder="your@email.com">
+        <p class="error-msg" id="err7">We need an email. The truth needs a delivery address.</p>
+        <p class="step-fine-print">£1.99 &bull; Results within 15 minutes &bull; No refunds on the truth &bull; For entertainment purposes</p>
+        <div class="btn-row">
+            <button class="btn-next" id="submitBtn" onclick="submitQuiz()">Pay £1.99 &amp; get destroyed</button>
+            <button class="btn-back" onclick="goTo(6)">&larr; Back</button>
         </div>
-    </form>
+    </div>
 </div>
 
 <script>
-    const totalSteps = 7;
-    let currentStep = 1;
-
-    function updateProgress() {
-        const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
-        document.getElementById('progressFill').style.width = pct + '%';
-        document.getElementById('progressText').textContent = (currentStep - 1) + ' / ' + (totalSteps - 1);
+    let current = 0;
+    const totalScreens = 8, quizStart = 1;
+    function goTo(n) {
+        if (n > current && !validate(current)) return;
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.querySelector('[data-screen="' + n + '"]').classList.add('active');
+        current = n;
+        const strip = document.getElementById('progressStrip');
+        if (n >= quizStart) { strip.classList.add('visible'); document.getElementById('progressFill').style.width = ((n - quizStart) / (totalScreens - 1 - quizStart)) * 100 + '%'; }
+        else { strip.classList.remove('visible'); }
+        window.scrollTo(0, 0);
     }
-
-    function showStep(n) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.querySelector('[data-step="' + n + '"]').classList.add('active');
-        currentStep = n;
-        updateProgress();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     function selectBrutality(el) {
         document.querySelectorAll('.brutality-option').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        document.getElementById('brutalityInput').value = el.dataset.value;
-        document.getElementById('err1').style.display = 'none';
+        el.classList.add('selected'); document.getElementById('brutalityInput').value = el.dataset.value; hideError(1);
     }
-
-    function validate(step) {
-        if (step === 1) {
-            if (!document.getElementById('brutalityInput').value) {
-                document.getElementById('err1').style.display = 'block';
-                return false;
-            }
-            return true;
-        }
-        if (step >= 2 && step <= 6) {
-            const ta = document.getElementById('q' + (step - 1));
-            if (!ta.value.trim()) {
-                document.getElementById('err' + step).style.display = 'block';
-                return false;
-            }
-            return true;
-        }
-        if (step === 7) {
-            const email = document.getElementById('emailInput');
-            if (!email.value.trim() || !email.validity.valid) {
-                document.getElementById('err7').style.display = 'block';
-                return false;
-            }
-            return true;
-        }
+    function hideError(n) { const e = document.getElementById('err' + n); if (e) e.style.display = 'none'; }
+    function showError(n) { const e = document.getElementById('err' + n); if (e) e.style.display = 'block'; }
+    function validate(n) {
+        hideError(n);
+        if (n === 0) return true;
+        if (n === 1) { if (!document.getElementById('brutalityInput').value) { showError(1); return false; } return true; }
+        if (n >= 2 && n <= 6) { if (!document.getElementById('q' + (n - 1)).value.trim()) { showError(n); return false; } return true; }
+        if (n === 7) { const e = document.getElementById('emailInput'); if (!e.value.trim() || !e.validity.valid) { showError(7); return false; } return true; }
         return true;
     }
-
-    function nextStep(from) {
-        document.getElementById('err' + from).style.display = 'none';
-        if (!validate(from)) return;
-        showStep(from + 1);
-    }
-
-    function prevStep(from) {
-        showStep(from - 1);
-    }
-
     async function submitQuiz() {
         if (!validate(7)) return;
-
         const btn = document.getElementById('submitBtn');
-        btn.textContent = 'Submitting...';
-        btn.classList.add('submitting');
-
-        const formData = {
-            audit_type: document.querySelector('[name="audit_type"]').value,
+        btn.textContent = 'Submitting...'; btn.classList.add('submitting');
+        const data = {
+            audit_type: 'Relationships - Women',
             brutality_level: document.getElementById('brutalityInput').value,
-            q1: document.getElementById('q1').value,
-            q2: document.getElementById('q2').value,
-            q3: document.getElementById('q3').value,
-            q4: document.getElementById('q4').value,
-            q5: document.getElementById('q5').value,
-            email: document.getElementById('emailInput').value
+            q1: document.getElementById('q1').value, q2: document.getElementById('q2').value,
+            q3: document.getElementById('q3').value, q4: document.getElementById('q4').value,
+            q5: document.getElementById('q5').value, email: document.getElementById('emailInput').value
         };
-
-        try {
-            await fetch('https://formspree.io/f/mnjbgvyo', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-        } catch (e) {
-            // Still redirect to payment even if Formspree hiccups
-        }
-
+        try { await fetch('https://formspree.io/f/mnjbgvyo', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (e) {}
         window.location.href = 'https://buy.stripe.com/dRmfZj3vrcQV38U1jC5Rm00';
     }
-
-    updateProgress();
 </script>
 
 </body>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Done | I'll Be Brutal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --red: #E8243C;
+            --black: #0A0A0A;
+            --text: #F0EDED;
+            --text-dim: #888888;
+            --text-muted: #555555;
+        }
+        body {
+            background: var(--black);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .done-container {
+            max-width: 560px;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        .done-icon {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+        h1 span { color: var(--red); }
+        .done-text {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+        .done-text strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+        .done-box {
+            background: #111;
+            border: 1px solid #222;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .done-box p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        .done-share {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+        .done-share a {
+            color: var(--red);
+            text-decoration: none;
+        }
+        .done-share a:hover { text-decoration: underline; }
+        footer {
+            position: fixed;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+        footer p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="done-container">
+    <div class="done-icon">🔥</div>
+    <h1>Done.<br><span>Brace yourself.</span></h1>
+    <p class="done-text">Your answers have been received. A very judgmental assessment of your entire life is being prepared right now.<br><br><strong>Check your inbox within 15 minutes.</strong></p>
+    <div class="done-box">
+        <p>If you don't see it, check your spam folder. Even email providers try to protect people from the truth.</p>
+    </div>
+    <p class="done-share">Think a friend needs this? Send them to <a href="https://illbebrutal.com">illbebrutal.com</a></p>
+</div>
+
+<footer>
+    <p>I'll Be Brutal. For entertainment purposes. &copy; 2026</p>
+</footer>
+
+</body>
+</html>

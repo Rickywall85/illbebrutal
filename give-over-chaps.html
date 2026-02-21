@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Are You A Real Man? | I'll Be Brutal</title>
-    <meta name="description" content="5 questions about the man you think you are vs the man you actually are. £1.99. No ego spared.">
+    <title>Man Up | I'll Be Brutal</title>
+    <meta name="description" content="5 questions. Brutally honest results. £1.99. No refunds on the truth.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -35,102 +35,294 @@
             pointer-events: none;
             z-index: 9999;
         }
+
+        /* ===== SCREENS ===== */
         .screen {
-            min-height: 100dvh; display: none; flex-direction: column;
-            position: relative; animation: screenIn 0.35s ease;
+            min-height: 100dvh;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            animation: screenIn 0.35s ease;
         }
         .screen.active { display: flex; }
-        @keyframes screenIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes screenIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SCREEN 0: LANDER ===== */
         .lander {
-            justify-content: center; align-items: center; text-align: center; padding: 2rem 1.5rem;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
         }
         .lander::before {
-            content: ''; position: absolute;
+            content: '';
+            position: absolute;
             top: -40%; left: -40%; width: 180%; height: 180%;
             background: radial-gradient(circle at 50% 40%, rgba(232, 36, 60, 0.07) 0%, transparent 55%);
             pointer-events: none;
         }
         .lander-content { position: relative; z-index: 2; max-width: 480px; }
         .lander-badge {
-            font-family: 'Space Mono', monospace; font-size: 0.6rem;
-            color: var(--red); letter-spacing: 0.35em; text-transform: uppercase;
-            margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; transform: translateY(15px);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--red);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
         }
         .lander h1 {
-            font-family: 'Anton', sans-serif; font-size: clamp(2.8rem, 12vw, 5.5rem);
-            text-transform: uppercase; line-height: 0.9; margin-bottom: 1.25rem;
-            opacity: 0; animation: fadeUp 0.6s 0s forwards; transform: translateY(20px);
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 13vw, 5.5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 1.25rem;
+            opacity: 0; animation: fadeUp 0.6s 0s forwards;
         }
         .lander h1 span { color: var(--red); }
         .lander-pitch {
-            font-size: 0.95rem; color: var(--text-dim); font-weight: 300;
-            line-height: 1.65; margin-bottom: 1.75rem;
-            opacity: 0; animation: fadeUp 0.6s 0.2s forwards; transform: translateY(15px);
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            font-weight: 300;
+            line-height: 1.65;
+            margin-bottom: 1.75rem;
+            opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
         }
         .lander-price-row {
-            margin-bottom: 1.75rem; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; transform: translateY(15px);
+            margin-bottom: 1.75rem;
+            opacity: 0; animation: fadeUp 0.6s 0.3s forwards;
         }
-        .lander-price { font-family: 'Anton', sans-serif; font-size: 2.5rem; display: inline-block; }
+        .lander-price {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            display: inline-block;
+        }
         .lander-price-jab {
-            font-family: 'Space Mono', monospace; font-size: 0.65rem;
-            color: var(--text-muted); display: block; margin-top: 0.25rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.25rem;
+            letter-spacing: 0.05em;
         }
-        .lander-cta { opacity: 0; animation: fadeUp 0.6s 0.4s forwards; transform: translateY(15px); }
+        .lander-cta {
+            opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+        }
         .btn-dare {
-            font-family: 'Space Mono', monospace; font-size: 0.85rem;
-            letter-spacing: 0.2em; text-transform: uppercase; color: var(--black);
-            background: var(--red); border: none; padding: 1.1rem 3rem;
-            cursor: pointer; transition: all 0.3s ease;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--black);
+            background: var(--red);
+            border: none;
+            padding: 1.1rem 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
         }
-        .btn-dare:hover { background: #FF1744; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232, 36, 60, 0.35); }
+        .btn-dare:hover {
+            background: #FF1744;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(232, 36, 60, 0.35);
+        }
         .lander-footer-line {
-            position: absolute; bottom: 1.25rem; left: 0; width: 100%; text-align: center;
-            font-family: 'Space Mono', monospace; font-size: 0.55rem;
-            color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase;
-            opacity: 0; animation: fadeUp 0.6s 0.6s forwards; transform: translateY(5px);
+            position: absolute;
+            bottom: 1.25rem;
+            left: 0; width: 100%;
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
         }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        .progress-strip { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: var(--mid-grey); z-index: 500; display: none; }
+        .lander-badge, .lander-pitch, .lander-price-row, .lander-cta {
+            transform: translateY(15px);
+        }
+        .lander h1 { transform: translateY(20px); }
+        .lander-footer-line { transform: translateY(5px); }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-strip {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 3px;
+            background: var(--mid-grey);
+            z-index: 500;
+            display: none;
+        }
         .progress-strip.visible { display: block; }
-        .progress-strip-fill { height: 100%; background: var(--red); transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); width: 0%; }
-        .quiz-screen { justify-content: center; padding: 3.5rem 1.5rem 2rem; }
-        .quiz-inner { max-width: 560px; width: 100%; margin: 0 auto; }
-        .q-step-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1rem; }
-        .q-title { font-family: 'Anton', sans-serif; font-size: clamp(1.6rem, 5vw, 2.2rem); text-transform: uppercase; line-height: 1.1; margin-bottom: 1.25rem; }
-        .q-instruction { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
+        .progress-strip-fill {
+            height: 100%;
+            background: var(--red);
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 0%;
+        }
+
+        /* ===== QUIZ SCREENS ===== */
+        .quiz-screen {
+            justify-content: center;
+            padding: 3.5rem 1.5rem 2rem;
+        }
+        .quiz-inner {
+            max-width: 560px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .q-step-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--red);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .q-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .q-instruction {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* BRUTALITY OPTIONS */
         .brutality-options { display: flex; flex-direction: column; gap: 0.6rem; }
-        .brutality-option { background: var(--off-black); border: 1px solid #222; padding: 1.1rem 1.25rem; cursor: pointer; transition: all 0.3s ease; position: relative; }
+        .brutality-option {
+            background: var(--off-black);
+            border: 1px solid #222;
+            padding: 1.1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
         .brutality-option:hover { border-color: #444; }
         .brutality-option.selected { border-color: var(--red); background: #1a0a0d; }
-        .brutality-option.selected::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--red); }
-        .b-name { font-family: 'Anton', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 0.15rem; }
+        .brutality-option.selected::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--red);
+        }
+        .b-name {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 0.15rem;
+        }
         .brutality-option:nth-child(1) .b-name { color: var(--text); }
         .brutality-option:nth-child(2) .b-name { color: var(--red); }
         .brutality-option:nth-child(3) .b-name { color: #FF1744; }
         .b-desc { font-size: 0.8rem; color: var(--text-dim); font-weight: 300; }
-        textarea { width: 100%; min-height: 160px; background: var(--off-black); border: 1px solid #222; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; padding: 1.15rem; resize: vertical; outline: none; transition: border-color 0.3s; line-height: 1.6; }
+
+        /* TEXTAREA */
+        textarea {
+            width: 100%;
+            min-height: 160px;
+            background: var(--off-black);
+            border: 1px solid #222;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            padding: 1.15rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s;
+            line-height: 1.6;
+        }
         textarea:focus { border-color: var(--red); }
         textarea::placeholder { color: #444; }
-        input[type="email"] { width: 100%; background: var(--off-black); border: 1px solid #222; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; padding: 1.15rem; outline: none; transition: border-color 0.3s; }
+
+        /* EMAIL */
+        input[type="email"] {
+            width: 100%;
+            background: var(--off-black);
+            border: 1px solid #222;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            padding: 1.15rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
         input[type="email"]:focus { border-color: var(--red); }
         input[type="email"]::placeholder { color: #444; }
+
+        /* BUTTONS */
         .btn-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        .btn-next { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); background: var(--red); border: none; padding: 0.9rem 2rem; cursor: pointer; transition: all 0.3s ease; }
-        .btn-next:hover { background: #FF1744; transform: translateY(-1px); box-shadow: 0 6px 25px rgba(232, 36, 60, 0.3); }
+        .btn-next {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--black);
+            background: var(--red);
+            border: none;
+            padding: 0.9rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-next:hover {
+            background: #FF1744;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(232, 36, 60, 0.3);
+        }
         .btn-next.submitting { pointer-events: none; opacity: 0.5; }
-        .btn-back { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text-muted); background: none; border: none; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 0; transition: color 0.3s; }
+        .btn-back {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
         .btn-back:hover { color: var(--text); }
-        .error-msg { font-family: 'Space Mono', monospace; color: var(--red); font-size: 0.7rem; margin-top: 0.75rem; display: none; }
-        .step-fine-print { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.6; }
+
+        .error-msg {
+            font-family: 'Space Mono', monospace;
+            color: var(--red);
+            font-size: 0.7rem;
+            margin-top: 0.75rem;
+            display: none;
+            letter-spacing: 0.05em;
+        }
+        .step-fine-print {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 1.25rem;
+            line-height: 1.6;
+        }
+
+        /* ===== DESKTOP ===== */
         @media (min-width: 768px) {
             .lander { padding: 3rem 2rem; }
-            .lander h1 { font-size: 5.5rem; }
+            .lander h1 { font-size: 6rem; }
             .lander-pitch { font-size: 1.05rem; max-width: 460px; margin-left: auto; margin-right: auto; }
             .quiz-screen { padding: 4rem 2rem; }
             textarea { min-height: 180px; }
         }
         @media (max-width: 380px) {
-            .lander h1 { font-size: 2.4rem; }
+            .lander h1 { font-size: 2.6rem; }
             .lander-pitch { font-size: 0.85rem; }
             .lander-price { font-size: 2rem; }
             .btn-dare { padding: 1rem 2rem; font-size: 0.75rem; }
@@ -139,18 +331,21 @@
 </head>
 <body>
 
-<div class="progress-strip" id="progressStrip"><div class="progress-strip-fill" id="progressFill"></div></div>
+<!-- PROGRESS -->
+<div class="progress-strip" id="progressStrip">
+    <div class="progress-strip-fill" id="progressFill"></div>
+</div>
 
-<!-- LANDER -->
+<!-- ===== SCREEN 0: LANDER ===== -->
 <div class="screen lander active" data-screen="0">
     <div class="lander-content">
         <p class="lander-badge">I'll Be Brutal</p>
-        <h1>Are You A<br><span>Real Man?</span></h1>
-        <p class="lander-badge" style="margin-bottom:1.75rem;margin-top:0.5rem;font-size:0.75rem;letter-spacing:0.2em;">We doubt it.</p>
-        <p class="lander-pitch">Five questions about who depends on you, the conversations you're dodging, the last time you were tested, and the gap between who you pretend to be and who you are when nobody's watching. We read your answers. Then we tell you if you're the man you think you are.</p>
+        <h1>Man<br><span>Up</span></h1>
+        <p class="lander-badge" style="margin-bottom:1.75rem;margin-top:0.5rem;font-size:0.75rem;letter-spacing:0.2em;">Or don't. We'll judge either way.</p>
+        <p class="lander-pitch">Five questions about your evenings, your excuses, your friendships, and the gap between who you are and who you keep saying you'll become. We read your answers. Then we tell you what's actually going on.</p>
         <div class="lander-price-row">
             <div class="lander-price">£1.99</div>
-            <span class="lander-price-jab">Your ego's about to cost you a lot more than that.</span>
+            <span class="lander-price-jab">If you think that's harsh, wait for the results.</span>
         </div>
         <div class="lander-cta">
             <button class="btn-dare" onclick="goTo(1)">I dare you</button>
@@ -159,28 +354,28 @@
     <p class="lander-footer-line">Results emailed within 15 mins &bull; For entertainment purposes</p>
 </div>
 
-<!-- BRUTALITY -->
+<!-- ===== SCREEN 1: BRUTALITY ===== -->
 <div class="screen quiz-screen" data-screen="1">
     <div class="quiz-inner">
         <p class="q-step-label">Before we start</p>
         <h2 class="q-title">How hard do you want this to hit?</h2>
-        <p class="q-instruction">There's no participation trophy. But there are levels of destruction. Most men pick Savage and regret it. Some pick Unhinged and deserve it.</p>
+        <p class="q-instruction">There's no "gentle" option. We don't do gentle. But there are degrees of destruction.</p>
         <div class="brutality-options">
             <div class="brutality-option" data-value="Brutal" onclick="selectBrutality(this)">
                 <p class="b-name">Brutal</p>
-                <p class="b-desc">Direct. Sharp. Like your old man telling you to sort yourself out.</p>
+                <p class="b-desc">Direct. Sharp. Funny. Your honest mate after two pints.</p>
             </div>
             <div class="brutality-option" data-value="Savage" onclick="selectBrutality(this)">
                 <p class="b-name">Savage</p>
-                <p class="b-desc">Finds the weakness you've been hiding. Puts it under a spotlight.</p>
+                <p class="b-desc">Finds the thing you're most insecure about. Turns the knife. Smiles.</p>
             </div>
             <div class="brutality-option" data-value="Unhinged" onclick="selectBrutality(this)">
                 <p class="b-name">Unhinged</p>
-                <p class="b-desc">Full demolition. Your entire identity gets stress-tested. Most fail.</p>
+                <p class="b-desc">Scorched earth. You will screenshot this. You may not recover.</p>
             </div>
         </div>
         <input type="hidden" id="brutalityInput">
-        <p class="error-msg" id="err1">Can't even make a decision. Strong start.</p>
+        <p class="error-msg" id="err1">Pick one. Or are you scared already?</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(2)">Next</button>
             <button class="btn-back" onclick="goTo(0)">&larr; Back out</button>
@@ -188,14 +383,14 @@
     </div>
 </div>
 
-<!-- Q1 -->
+<!-- ===== SCREEN 2: Q1 ===== -->
 <div class="screen quiz-screen" data-screen="2">
     <div class="quiz-inner">
         <p class="q-step-label">Question 1 of 5</p>
-        <h2 class="q-title">Who depends on you right now, and are you showing up for them properly?</h2>
-        <p class="q-instruction">Your partner. Your kids. Your parents. Your team. Your mates. Name them. Then be honest about whether you're actually there for them or just physically present. There's a difference and you know it.</p>
-        <textarea id="q1" placeholder="The people depending on me are... and honestly I'm..."></textarea>
-        <p class="error-msg" id="err2">Nobody? Or you just don't want to admit the answer?</p>
+        <h2 class="q-title">Describe your average weekday evening from the moment you finish work.</h2>
+        <p class="q-instruction">Don't summarise. Walk us through it. What do you eat. What do you watch. Who do you talk to. What time do you go to bed. The more detail you give us, the more accurately we can judge you.</p>
+        <textarea id="q1" placeholder="Finish work, then..."></textarea>
+        <p class="error-msg" id="err2">Empty. Just like your evenings, apparently.</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(3)">Next</button>
             <button class="btn-back" onclick="goTo(1)">&larr; Back</button>
@@ -203,14 +398,14 @@
     </div>
 </div>
 
-<!-- Q2 -->
+<!-- ===== SCREEN 3: Q2 ===== -->
 <div class="screen quiz-screen" data-screen="3">
     <div class="quiz-inner">
         <p class="q-step-label">Question 2 of 5</p>
-        <h2 class="q-title">What's the hardest conversation you've been avoiding, and why haven't you had it?</h2>
-        <p class="q-instruction">With your boss. Your partner. Your friend. Your family. The one you know you need to have but keep putting off. Tell us what it is, who it's with, and the real reason — not the excuse — you haven't done it yet.</p>
-        <textarea id="q2" placeholder="The conversation I've been avoiding is... because..."></textarea>
-        <p class="error-msg" id="err3">Dodging the question about dodging a conversation. Ironic.</p>
+        <h2 class="q-title">What's something you keep telling yourself you'll start but haven't? Why not?</h2>
+        <p class="q-instruction">The gym. The side project. The conversation you've been putting off. Whatever it is, say it. Then tell us the excuse — the real one, not the version you tell other people.</p>
+        <textarea id="q2" placeholder="I keep saying I'll..."></textarea>
+        <p class="error-msg" id="err3">Leaving this blank is basically answering the question.</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(4)">Next</button>
             <button class="btn-back" onclick="goTo(2)">&larr; Back</button>
@@ -218,14 +413,14 @@
     </div>
 </div>
 
-<!-- Q3 -->
+<!-- ===== SCREEN 4: Q3 ===== -->
 <div class="screen quiz-screen" data-screen="4">
     <div class="quiz-inner">
         <p class="q-step-label">Question 3 of 5</p>
-        <h2 class="q-title">Describe the last time you were truly tested — physically, mentally, or emotionally.</h2>
-        <p class="q-instruction">A specific moment. Not a vague "tough year." A real situation where you were under pressure. What happened? How did you actually handle it? Not how you tell the story at the pub — how it actually went. Did you step up or fold?</p>
-        <textarea id="q3" placeholder="The last time I was really tested was when..."></textarea>
-        <p class="error-msg" id="err4">If nothing comes to mind, that's an answer too.</p>
+        <h2 class="q-title">How would your closest mate honestly describe you right now?</h2>
+        <p class="q-instruction">Not five years ago. Right now. Not how YOU'D describe yourself — how THEY would. After a few drinks. When you're not in the room. Be as specific as you can.</p>
+        <textarea id="q3" placeholder="They'd probably say..."></textarea>
+        <p class="error-msg" id="err4">You know what they'd say. Just write it.</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(5)">Next</button>
             <button class="btn-back" onclick="goTo(3)">&larr; Back</button>
@@ -233,14 +428,14 @@
     </div>
 </div>
 
-<!-- Q4 -->
+<!-- ===== SCREEN 5: Q4 ===== -->
 <div class="screen quiz-screen" data-screen="5">
     <div class="quiz-inner">
         <p class="q-step-label">Question 4 of 5</p>
-        <h2 class="q-title">What would your dad (or the man who raised you) say about the man you've become?</h2>
-        <p class="q-instruction">His honest words. Not what you'd want him to say. Not the speech at your wedding. What would he actually think if he could see everything — your daily routine, your ambition, your choices, your character? If the answer's complicated, good. Write all of it.</p>
-        <textarea id="q4" placeholder="He'd honestly say..."></textarea>
-        <p class="error-msg" id="err5">This one's supposed to hurt. Sit with it.</p>
+        <h2 class="q-title">What's the last thing you did that actually made you proud of yourself?</h2>
+        <p class="q-instruction">Not "got through the week." Something that genuinely made you think "yeah, that was good." Tell us what it was and how long ago it was. If you're struggling to think of something, that is the answer.</p>
+        <textarea id="q4" placeholder="The last time I felt genuinely proud was..."></textarea>
+        <p class="error-msg" id="err5">Even if it hurts to admit how long ago it was.</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(6)">Next</button>
             <button class="btn-back" onclick="goTo(4)">&larr; Back</button>
@@ -248,14 +443,14 @@
     </div>
 </div>
 
-<!-- Q5 -->
+<!-- ===== SCREEN 6: Q5 ===== -->
 <div class="screen quiz-screen" data-screen="6">
     <div class="quiz-inner">
         <p class="q-step-label">Question 5 of 5</p>
-        <h2 class="q-title">What's the version of yourself you pretend to be versus who you actually are when nobody's watching?</h2>
-        <p class="q-instruction">The public version — confident, sorted, together. Then the private version — what you actually do, think, feel when the door's shut and nobody's looking. Describe both. The gap between them is the audit.</p>
-        <textarea id="q5" placeholder="People see me as... but when nobody's watching I'm..."></textarea>
-        <p class="error-msg" id="err6">This is the whole point. Don't bottle it now.</p>
+        <h2 class="q-title">What are you pretending is fine that isn't?</h2>
+        <p class="q-instruction">This is the one. The thing you haven't said out loud. The thing you've been carrying. Your job. Your relationship. Your health. Your direction. Whatever it is — this is between you and us. Don't waste it.</p>
+        <textarea id="q5" placeholder="The thing I haven't admitted is..."></textarea>
+        <p class="error-msg" id="err6">This is literally what you're paying for. Write it.</p>
         <div class="btn-row">
             <button class="btn-next" onclick="goTo(7)">Next</button>
             <button class="btn-back" onclick="goTo(5)">&larr; Back</button>
@@ -263,17 +458,17 @@
     </div>
 </div>
 
-<!-- EMAIL + PAY -->
+<!-- ===== SCREEN 7: EMAIL + PAY ===== -->
 <div class="screen quiz-screen" data-screen="7">
     <div class="quiz-inner">
         <p class="q-step-label">Last thing</p>
-        <h2 class="q-title">Where do we send the verdict?</h2>
-        <p class="q-instruction">Your results land in your inbox within 15 minutes. Spell it right — we're not tracking you down to question your manhood.</p>
+        <h2 class="q-title">Where do we send the damage?</h2>
+        <p class="q-instruction">Your results land in your inbox within 15 minutes. Make sure you spell it right — we're not chasing you down to insult you.</p>
         <input type="email" id="emailInput" placeholder="your@email.com">
-        <p class="error-msg" id="err7">We need an email. Can't deliver a verdict without an address.</p>
+        <p class="error-msg" id="err7">We need an email. We can't roast you telepathically. Yet.</p>
         <p class="step-fine-print">£1.99 &bull; Results within 15 minutes &bull; No refunds on the truth &bull; For entertainment purposes</p>
         <div class="btn-row">
-            <button class="btn-next" id="submitBtn" onclick="submitQuiz()">Pay £1.99 &amp; find out</button>
+            <button class="btn-next" id="submitBtn" onclick="submitQuiz()">Pay £1.99 &amp; get destroyed</button>
             <button class="btn-back" onclick="goTo(6)">&larr; Back</button>
         </div>
     </div>
@@ -281,43 +476,93 @@
 
 <script>
     let current = 0;
-    const totalScreens = 8, quizStart = 1;
+    const totalScreens = 8;
+    const quizStart = 1;
+
     function goTo(n) {
+        // Validate current screen before advancing
         if (n > current && !validate(current)) return;
+
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.querySelector('[data-screen="' + n + '"]').classList.add('active');
+        const target = document.querySelector('[data-screen="' + n + '"]');
+        target.classList.add('active');
         current = n;
+
+        // Progress bar
         const strip = document.getElementById('progressStrip');
-        if (n >= quizStart) { strip.classList.add('visible'); document.getElementById('progressFill').style.width = ((n - quizStart) / (totalScreens - 1 - quizStart)) * 100 + '%'; }
-        else { strip.classList.remove('visible'); }
+        if (n >= quizStart) {
+            strip.classList.add('visible');
+            const pct = ((n - quizStart) / (totalScreens - 1 - quizStart)) * 100;
+            document.getElementById('progressFill').style.width = pct + '%';
+        } else {
+            strip.classList.remove('visible');
+        }
+
         window.scrollTo(0, 0);
     }
+
     function selectBrutality(el) {
         document.querySelectorAll('.brutality-option').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected'); document.getElementById('brutalityInput').value = el.dataset.value; hideError(1);
+        el.classList.add('selected');
+        document.getElementById('brutalityInput').value = el.dataset.value;
+        hideError(1);
     }
-    function hideError(n) { const e = document.getElementById('err' + n); if (e) e.style.display = 'none'; }
-    function showError(n) { const e = document.getElementById('err' + n); if (e) e.style.display = 'block'; }
+
+    function hideError(n) {
+        const errIds = { 0: null, 1: 'err1', 2: 'err2', 3: 'err3', 4: 'err4', 5: 'err5', 6: 'err6', 7: 'err7' };
+        if (errIds[n]) document.getElementById(errIds[n]).style.display = 'none';
+    }
+
+    function showError(n) {
+        const errIds = { 1: 'err1', 2: 'err2', 3: 'err3', 4: 'err4', 5: 'err5', 6: 'err6', 7: 'err7' };
+        if (errIds[n]) document.getElementById(errIds[n]).style.display = 'block';
+    }
+
     function validate(n) {
         hideError(n);
         if (n === 0) return true;
-        if (n === 1) { if (!document.getElementById('brutalityInput').value) { showError(1); return false; } return true; }
-        if (n >= 2 && n <= 6) { if (!document.getElementById('q' + (n - 1)).value.trim()) { showError(n); return false; } return true; }
-        if (n === 7) { const e = document.getElementById('emailInput'); if (!e.value.trim() || !e.validity.valid) { showError(7); return false; } return true; }
+        if (n === 1) {
+            if (!document.getElementById('brutalityInput').value) { showError(1); return false; }
+            return true;
+        }
+        if (n >= 2 && n <= 6) {
+            const ta = document.getElementById('q' + (n - 1));
+            if (!ta.value.trim()) { showError(n); return false; }
+            return true;
+        }
+        if (n === 7) {
+            const email = document.getElementById('emailInput');
+            if (!email.value.trim() || !email.validity.valid) { showError(7); return false; }
+            return true;
+        }
         return true;
     }
+
     async function submitQuiz() {
         if (!validate(7)) return;
         const btn = document.getElementById('submitBtn');
-        btn.textContent = 'Submitting...'; btn.classList.add('submitting');
+        btn.textContent = 'Submitting...';
+        btn.classList.add('submitting');
+
         const data = {
-            audit_type: 'Are You A Real Man',
+            audit_type: 'Life Audit - Men',
             brutality_level: document.getElementById('brutalityInput').value,
-            q1: document.getElementById('q1').value, q2: document.getElementById('q2').value,
-            q3: document.getElementById('q3').value, q4: document.getElementById('q4').value,
-            q5: document.getElementById('q5').value, email: document.getElementById('emailInput').value
+            q1: document.getElementById('q1').value,
+            q2: document.getElementById('q2').value,
+            q3: document.getElementById('q3').value,
+            q4: document.getElementById('q4').value,
+            q5: document.getElementById('q5').value,
+            email: document.getElementById('emailInput').value
         };
-        try { await fetch('https://formspree.io/f/mnjbgvyo', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }); } catch (e) {}
+
+        try {
+            await fetch('https://formspree.io/f/mnjbgvyo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        } catch (e) {}
+
         window.location.href = 'https://buy.stripe.com/dRmfZj3vrcQV38U1jC5Rm00';
     }
 </script>
